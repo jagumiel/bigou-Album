@@ -38,9 +38,6 @@
 									<td>$myUser</td>
 									<td><img src='$avatar' width=40px/></td>
 								  </tr>";	
-								  //Podemos meter otra <td> para ver el perfil del usuario si es uno registrado.
-								  //<td><img src='".$user['avatar']."'/></td>
-
 						}
 						echo"</table>";
 					}else{
@@ -58,10 +55,7 @@
 									<td>$myUser</td>
 									<td><img src='$avatar' width=40px/></td>
 									<td><a href='otherProfile.php?nick=$myUser'>Ver Perfil</a></td>
-								  </tr>";	
-								  //Podemos meter otra <td> para ver el perfil del usuario si es uno registrado.
-								  //<td><img src='".$user['avatar']."'/></td>
-
+								  </tr>";
 						}
 						echo"</table>";
 					}

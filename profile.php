@@ -12,7 +12,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Bigou</title>       
+        <title>Bigou - Mi Perfil</title>       
         <link href="style/bigou_style.css" rel="stylesheet" type="text/css" />
         <!--<link rel='stylesheet' type='text/css' media='only screen and (max-width: 480px)' href='estilos/smartphone.css'/>-->
 	</head>  
