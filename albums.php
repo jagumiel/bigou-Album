@@ -20,7 +20,7 @@
 	<body>
 		<div class="Canvas">
 			<?php echo menuHeader(true, $nick, $_SESSION['role']); ?>
-			<div class="Display">
+			<div class="AlbumDisplay">
 				<?php
 					$userAlbums = getAlbums($nick); 
 					foreach($userAlbums as $album ) {	

@@ -1,5 +1,5 @@
 <?php
-	include './functions/database_logic.php';
+	include_once './functions/database_logic.php';
 	include './functions/photo_logic.php';
 	
 	session_start();

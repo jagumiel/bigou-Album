@@ -22,9 +22,9 @@
 				
 		if ($intentos <= 3){*/
 		
-			$hashedPassword = hash("sha256", $password, false);
+			//$hashedPassword = hash("sha256", $password, false);
 			
-			if(checkNickPassword($nick,  $hashedPassword))
+			if(checkNickPassword($nick,  $password))
 			{
 				$email = getEmail($nick);
 				$_SESSION['nick'] = $nick;
@@ -51,9 +51,10 @@
 	
 	function checkNickPassword($nick, $password) {		
 		$truePassword = getPassword($nick);
+		$hashedPassword = hash("sha256", $password, false);		
 
 		if ($truePassword != null)
-			if (strcmp($truePassword, $password) == 0)
+			if (strcmp($truePassword, $hashedPassword) == 0)
 				return true;
 		
 		return false;

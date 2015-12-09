@@ -20,60 +20,61 @@
 	<body>
 		<div class="Canvas">
 			<?php echo menuHeader(true, $nick, $_SESSION['role']); ?>	
-		
-			<form class="Fancy" enctype="multipart/form-data" onSubmit='' action="./business_logic/newPhoto_bl.php" method="post" name="newPhoto" > 
-				<fieldset>
-					<legend>Subir Foto</legend>
-					<label>Los campos marcados con (*) son obligatorios.</label><br/><br/>
-					
-					<label>(*) Álbum:</label> &emsp; 
-					<select name="albumName">
-						<?php 
-							$userAlbums = getAlbums($nick); 
-							foreach($userAlbums as $album ) {
-								switch($album['access']) {
-									case "private":
-										$access = "Privado";
-										break;
-									case "limited":
-										$access = "Acceso Limitado";
-										break;
-									case "public":
-										$access = "Público";
-										break;
-									default:
-										$access = "Incorrecto";
-										break;
-								
+			<div class="GeneralDisplay">
+				<form class="Fancy" enctype="multipart/form-data" onSubmit='' action="./business_logic/newPhoto_bl.php" method="post" name="newPhoto" > 
+					<fieldset>
+						<legend>Subir Foto</legend>
+						<label>Los campos marcados con (*) son obligatorios.</label><br/><br/>
+						
+						<label>(*) Álbum:</label> &emsp; 
+						<select name="albumName">
+							<?php 
+								$userAlbums = getAlbums($nick); 
+								foreach($userAlbums as $album ) {
+									switch($album['access']) {
+										case "private":
+											$access = "Privado";
+											break;
+										case "limited":
+											$access = "Acceso Limitado";
+											break;
+										case "public":
+											$access = "Público";
+											break;
+										default:
+											$access = "Incorrecto";
+											break;
+									
+									}
+									echo "<option value='".$album['name']."'>".$album['name']." (".$access.")</option>";	
 								}
-								echo "<option value='".$album['name']."'>".$album['name']." (".$access.")</option>";	
-							}
-						?> 
-					</select>
-					
-					<br/><br/>
-					<hr/>	
-					<br/>					
-					
-					<span> (*) Foto: </span>
-					<br/><br/>
-					<input type="file" name="image" id="image" onChange="loadFile(event)">
-					<br/><br/>
-					<img id="output" align="center" width="150px" height="auto"/></br>
-						<script>
-						  var loadFile = function(event) {
-							var output = document.getElementById('output');
-							output.src = URL.createObjectURL(event.target.files[0]);
-						  };
-						</script>
-					<br/><br/>
-				</fieldset>
-				<br/>
-				<div style="text-align: center;">
-					<input type="submit" class="Basic Fancy" value="Subir Foto" name="submit" >
-				</div>
-			</form>    
-			<br/><br/>   
+							?> 
+						</select>
+						
+						<br/><br/>
+						<hr/>	
+						<br/>					
+						
+						<span> (*) Foto: </span>
+						<br/><br/>
+						<input type="file" name="image" id="image" onChange="loadFile(event)">
+						<br/><br/>
+						<img id="output" align="center" width="150px" height="auto"/></br>
+							<script>
+							  var loadFile = function(event) {
+								var output = document.getElementById('output');
+								output.src = URL.createObjectURL(event.target.files[0]);
+							  };
+							</script>
+						<br/><br/>
+					</fieldset>
+					<br/>
+					<div style="text-align: center;">
+						<input type="submit" class="Basic Fancy" value="Subir Foto" name="submit" >
+					</div>
+				</form>    
+				<br/><br/>  
+			</div>
 		</div>
 	</body>
 </html>

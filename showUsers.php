@@ -22,7 +22,7 @@
 	<body>
 		<div class="Canvas">
 			<?php echo menuHeader(true, $nick, $_SESSION['role']); ?>
-			<div class="Display">
+			<div class="GeneralDisplay">
 				<?php
 					if($nick=="Guest"){
 						echo"<table>

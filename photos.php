@@ -21,7 +21,7 @@
 	<body>
 		<div class="Canvas">
 			<?php echo menuHeader(true, $nick, $_SESSION['role']); ?>
-			<div class="Display">
+			<div class="PhotoDisplay">
 				<?php
 					$album=$_GET['var']; //Recogemos la variable que nos dice el nombre del album.
 					$albumPics = getPhotos($nick, $album); 

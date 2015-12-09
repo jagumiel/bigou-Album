@@ -15,6 +15,9 @@
 	<body>
 		<div class="Canvas">
 			<?php echo menuHeader(isset($_SESSION['nick']), $_SESSION['nick'], $_SESSION['role']); ?>	
+			<div class="GeneralDisplay">
+			
+			</div>		
 		</div>
 	</body>
 </html>

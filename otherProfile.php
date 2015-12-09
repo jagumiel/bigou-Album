@@ -15,42 +15,39 @@
         <!--<link rel='stylesheet' type='text/css' media='only screen and (max-width: 480px)' href='estilos/smartphone.css'/>-->
 	</head>  
 	<body>
-		<div class="canvas">
-			<?php echo menuHeader(isset($_SESSION['nick']), $_SESSION['nick'], $_SESSION['role']); ?>
-		</div>
-        <div>
-			<?php 
+		<div class="Canvas">
+			<?php echo menuHeader(isset($_SESSION['nick']), $_SESSION['nick'], $_SESSION['role']); 
 			$userProfile=$_GET['nick']; //Recogemos la variable que nos dice el nombre del album.
 			$avatar=getAvatar($userProfile);
 			$lastConnection = getLastConnection($userProfile);
 			//Falta sacar el rol del usuario.
 			echo '
-				<h1>Perfil de '.$userProfile.'</h1>
-				<table width="auto" border="3" align="center">
-				  <tr>
-					<td>Usuario</td>
-					<td>'.$userProfile.'</td>
-				  </tr>
-				  <tr>
-					<td>Avatar</td>
-					<td><a href="/'.$avatar.'"><img src="/'.$avatar.'" width="120px" height="auto"></a></td>
-				  </tr>
-				  <tr>
-					<td>Rol</td>
-					<td>'.$role.'</td>
-				  </tr>
-				  <tr>
-					<td>Última Conexión</td>
-					<td>'.$lastConnection.'</td>
-				  </tr>
-				</table>
-				<br>
-				<h1>Mis Álbumes</h1>
-				<p>Aquí se mostrarán los álbumes del usuario</p>
-				<br>';
+				<div class="GeneralDisplay">
+					<h1>Perfil de '.$userProfile.'</h1>
+					<table width="auto" border="3" align="center">
+					  <tr>
+						<td>Usuario</td>
+						<td>'.$userProfile.'</td>
+					  </tr>
+					  <tr>
+						<td>Avatar</td>
+						<td><a href="/'.$avatar.'"><img src="/'.$avatar.'" width="120px" height="auto"></a></td>
+					  </tr>
+					  <tr>
+						<td>Rol</td>
+						<td>'.$role.'</td>
+					  </tr>
+					  <tr>
+						<td>Última Conexión</td>
+						<td>'.$lastConnection.'</td>
+					  </tr>
+					</table>
+					<br>
+					<h1>Mis Álbumes</h1>
+					<p>Aquí se mostrarán los álbumes del usuario</p>
+					<br><br/>
+				</div>';
 			?>
-			
-				<br/><br/>
     	</div>
 	</body>
 </html>

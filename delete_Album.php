@@ -17,17 +17,18 @@
 	</head>  
     <body>
 	<body>
-		<div class="canvas">
+		<div class="Canvas">
 			<?php echo menuHeader(true, $nick, $_SESSION['role']); ?>	
-		
-			<p> Los campos marcados con (*) son obligatorios.</p><br/>
-			<form enctype="multipart/form-data" onSubmit='' action="./business_logic/deleteAlbum_bl.php" method="post" name="deleteAlbum" > 
-				(*) Nombre del Álbum:<br/>
-				<input type="text" name="albumName" onBlur = ""> 
-				<br/><br/>
-				<!--Estaría bien hacer un desplegable select para que el usuario elija un álbum para eliminar.-->
-				<input type="submit" value="Eliminar álbum" name="submit" >
-			</form>       
+			<div class="GeneralDisplay">
+				<p> Los campos marcados con (*) son obligatorios.</p><br/>
+				<form enctype="multipart/form-data" onSubmit='' action="./business_logic/deleteAlbum_bl.php" method="post" name="deleteAlbum" > 
+					(*) Nombre del Álbum:<br/>
+					<input type="text" name="albumName" onBlur = ""> 
+					<br/><br/>
+					<!--Estaría bien hacer un desplegable select para que el usuario elija un álbum para eliminar.-->
+					<input type="submit" value="Eliminar álbum" name="submit" >
+				</form>     
+			</div>
 		</div>
 	</body>
 </html>

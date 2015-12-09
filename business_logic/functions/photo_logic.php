@@ -11,7 +11,7 @@
 	
 	function deleteAlbum($nick, $albumName, $email, $ip) {
 		
-		if (makeQuery("DELETE FROM album WHERE nick='{$nick}' AND name='{$albumName}'")) {
+		if (removeAlbum($nick, $albumName)) {
 			addAction($nick, $email, $ip, 'delete_album');
 			return true;
 		}
@@ -20,7 +20,7 @@
 	
 	function deletePhoto($nick, $albumName, $path, $email, $ip) {
 		
-		if (makeQuery("DELETE FROM photo WHERE nick='{$nick}' AND path='{$path}' AND album='{$albumName}'")) {
+		if (removePhoto($nick, $path, $albumName)) {
 			addAction($nick, $email, $ip, 'delete_photo');
 			return true;
 		}
