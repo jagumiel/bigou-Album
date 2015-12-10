@@ -60,7 +60,7 @@
 		return makeQuery("INSERT INTO photo (nick, path, album) VALUES ('{$nick}', '{$path}', '{$albumName}')");
 	}
 
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	///////////////////////////////////////////////////USUARIOS//////////////////////////////////////////////////////////////////////////////	
 	
 	function getPassword($nick) {
 		return mysqli_fetch_assoc(makeQuery("SELECT password FROM user WHERE nick = '{$nick}'"))['password'];		
@@ -74,9 +74,23 @@
 		return mysqli_fetch_assoc(makeQuery("SELECT role FROM user WHERE nick='{$nick}'"))['role'];
 	}
 	
-	function getUsers() {
-		return makeQuery("SELECT nick, avatar FROM user");
+	function getUsers($validated) {
+		return makeQuery("SELECT * FROM user WHERE accepted='{$validated}'");
 	}
+	
+	function getAllUsers() {
+		return makeQuery("SELECT * FROM user");
+	}
+		
+	function getAvatar($nick) {
+		return mysqli_fetch_assoc(makeQuery("SELECT avatar FROM user WHERE nick='{$nick}'"))['avatar'];
+	}
+	
+	function setAccepted($nick){
+		return makeQuery("UPDATE user SET accepted='yes' WHERE nick = '{$nick}'");
+	}
+	
+	//////////////////////////////////////////////////7
 	
 	function getAlbums($nick) {
 		return makeQuery("SELECT * FROM album WHERE nick='{$nick}'");
@@ -90,9 +104,6 @@
 		return makeQuery("SELECT * FROM album WHERE access='limited'");
 	}
 	
-	function getAvatar($nick) {
-		return mysqli_fetch_assoc(makeQuery("SELECT avatar FROM user WHERE nick='{$nick}'"))['avatar'];
-	}
 	
 	function getLastConnection($nick){
 		//Nota: Hacemos un casting, si no sería imposible imprimir el tipo timestamp en PHP.
