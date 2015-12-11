@@ -9,7 +9,7 @@
 		
 	switch($logged) {
 		case '0':
-			header("Location: ../albums.php");
+			header("Location: ../new_album.php");
 			break;
 		case '1':
 			echo "Log in failed.";

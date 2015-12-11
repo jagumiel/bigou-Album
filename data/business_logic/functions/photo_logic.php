@@ -1,36 +1,30 @@
 <?php
 	include_once 'database_logic.php';
 	
-	function newAlbum($ip, $nick, $email, $albumName, $access, $coverPath) {
-		if (!addAlbum($nick, $albumName, $access, $coverPath)) 			
+	function newAlbum($ip, $nick, $email, $albumName, $coverPath) {
+		if (!addAlbum($nick, $albumName, $coverPath)) 			
 			return false;
 		
 		addAction($nick, $email, $ip, 'new_album');
 		return true;
 	}
 	
-	function deleteAlbum($nick, $albumName, $email, $ip) {	
-		if (removeAlbum($nick, $albumName)) {
-			addAction($nick, $email, $ip, 'delete_album');
+	function deleteAlbum($nick, $albumName) {
+		/*
+		if (makeQuery("DELETE FROM album WHERE...") {
+			newAction($nick, $email, $ip, 'delete_album');
 			return true;
 		}
-		return false;
-	}
-	
-	function deletePhoto($nick, $albumName, $path, $email, $ip) {
 		
-		if (removePhoto($nick, $path, $albumName)) {
-			addAction($nick, $email, $ip, 'delete_photo');
-			return true;
-		}
 		return false;
+		*/
 	}
 	
 	function uploadPhoto($ip, $image, $nick, $email, $path, $albumName) {
 		$existsAlbum = isAlbum($nick, $albumName); 
 	
 		if (!$existsAlbum) {
-			if (!newAlbum($ip, $nick, $email, $albumName, "private", "DEFAULT"))
+			if (!newAlbum($ip, $nick, $email, $albumName, "DEFAULT"))
 				return '1';
 		}		
 	
@@ -70,5 +64,4 @@
 		return $extension == "jpg" or $extension == "png" 
 			or $extension == "jpeg" or $extension == "gif";
 	}
-	
 ?>

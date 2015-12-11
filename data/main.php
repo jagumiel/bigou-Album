@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 	include './business_logic/functions/menu_logic.php';
 	session_start();
 	$nick = $_SESSION['nick'];
@@ -10,17 +10,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Bigou</title>       
         <link href="style/bigou_style.css" rel="stylesheet" type="text/css" />
-        <script language="JavaScript" src="./business_logic/ajax_bl.js"></script>
-		<script language="JavaScript" type="text/javascript" src="./business_logic/lib/jquery-1.11.3.min.js"></script>
-		<script>
-			getAlbumsOf("ALL"); 
-		</script>
+        <!--<link rel='stylesheet' type='text/css' media='only screen and (max-width: 480px)' href='estilos/smartphone.css'/>-->
 	</head>  
 	<body>
 		<div class="Canvas">
-			<?php echo menuHeader(isset($_SESSION['nick']), $_SESSION['nick'], $_SESSION['role']); ?>
-			<div id="display" class="Display"></div>    
-			<br/><br/>   
+			<?php echo menuHeader(isset($_SESSION['nick']), $_SESSION['nick'], $_SESSION['role']); ?>	
 		</div>
 	</body>
 </html>

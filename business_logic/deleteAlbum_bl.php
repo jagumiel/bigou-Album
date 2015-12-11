@@ -7,7 +7,13 @@
 	$ip = get_client_ip();
 	$nick = $_SESSION['nick']; 
 	$email = $_SESSION['email']; 
+	
+	/*$ip = $_GET['ip'];
+	$nick = $_GET['nick']; 
+	$email = $_GET['email']; */
 	$albumName = $_GET['albumName']; 
+	
+	echo $ip." ".$nick." ".$email." ".$albumName;
 		
 	if (isAlbum($nick, $albumName)) {
 		if (deleteAlbum($nick, $albumName, $email, $ip))

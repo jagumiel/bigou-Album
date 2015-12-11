@@ -29,7 +29,7 @@
 				
 				$path = $path."/".$avatar["name"];	
 				
-				$error = uploadPhoto($ip, $avatar, $nick, $email, $path, "Fotos de Perfil de ".$nick);
+				$error = uploadPhoto($ip, $avatar, $nick, $email, $path, "Fotos de Perfil");
 				if ($error != '0') {
 					$path = "data/user.png";	
 					

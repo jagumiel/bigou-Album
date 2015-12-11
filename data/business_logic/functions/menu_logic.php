@@ -1,5 +1,4 @@
 <?php
-	include_once 'database_logic.php';
 	function notLogged() {							
         return '
 		<div class="Login">
@@ -14,12 +13,9 @@
 		</div>';
 	}
 	
-	function logged($nick) {
-		$avatarPath = getAvatar($nick);
+	function logged($nick) {			
         return '<div class="Login">
 					<h1>'.$nick.'</h1>
-					<img src="'.$avatarPath.'" width="100" height="auto"/>
-					<br/><br/>
 					<a href="profile.php"><button class="Basic Fancy Login" name="profile">Mi cuenta</button></a>
 					<a href="business_logic/logout_bl.php"><button class="Basic Fancy Login" name="logout">Cerrar sesión</button></a>	
 				</div>';
@@ -45,9 +41,8 @@
 							<td class="Menu" colspan="2">
 								<a href="main.php"><button class="Basic Menu" name="main">Inicio</button></a><!--';
 		if ($logged) {
-			$header = $header.'--><a href="albums.php"><button class="Basic Menu" name="albums">Mis Álbumes</button></a><!--
-							   --><a href="album_new.php"><button class="Basic Menu" name="newAlbum">Crear Álbum</button></a><!--
-							   --><a href="photo_new.php"><button class="Basic Menu" name="newPhoto">Subir Foto</button></a><!--';
+			$header = $header.'--><a href="new_album.php"><button class="Basic Menu" name="newAlbum">Crear Álbum</button></a><!--
+							   --><a href="new_photo.php"><button class="Basic Menu" name="newPhoto">Subir Foto</button></a><!--';
 		}
 							
 		$header = $header.'--><a href=".html"><button class="Basic Menu" name="credits.php">Créditos</button></a>
