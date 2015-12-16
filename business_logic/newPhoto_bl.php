@@ -7,7 +7,7 @@
 	$ip = get_client_ip();
 	$nick = $_SESSION['nick']; 
 	$email = $_SESSION['email']; 
-	$albumName = $_GET['albumName']; 
+	$albumName = $_POST['albumName']; 
 		
 	if (isset($_FILES['image']) and acceptImage($_FILES['image'])) {
 		echo "Imagen aceptada.<br/>";
@@ -36,7 +36,7 @@
 					break;
 			} 
 		} else {
-			//header("Location: ../albums.php");
+			header("Location: ../photos.php?album=" + $albumName);
 		}
 		
 	} else {

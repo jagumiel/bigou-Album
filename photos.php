@@ -3,10 +3,12 @@
 	include_once './business_logic/functions/photo_logic.php';
 	include './business_logic/functions/menu_logic.php';
 	session_start();
-	if (!isset($_SESSION['nick']))
+	if (!isset($_SESSION['nick']) or !isset($_GET['album']))
 		header('Location: main.php');
+		
 	$nick = $_SESSION['nick'];
-	$album = $_GET['var']; 
+	$album = $_GET['album'];
+	$role = getRole($nick);
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -21,8 +23,8 @@
 		<script>
 			var nick = "<?php echo $nick; ?>";
 			var album = "<?php echo $album;?>";
-			getPhotosOf(nick); 
-			var intervalID = window.setInterval( function () { getPhotosOf(nick, album); }, 5000);	
+			getPhotosOf(nick, album); 
+			//var intervalID = window.setInterval( function () { getPhotosOf(nick, album); }, 5000);	
 			
 		</script>
 	</head> 
@@ -30,11 +32,16 @@
 		<div class="Canvas">
 			<?php echo menuHeader(true, $nick, $_SESSION['role']); ?>
 			<div class="GeneralDisplay">
-				<form class="Fancy" enctype="multipart/form-data" name="newPhoto" > 
+				<form class="Fancy" enctype="multipart/form-data" onSubmit='' action="./business_logic/newPhoto_bl.php" method="post" name="newPhoto" > 
 					<fieldset>
 						<legend>Subir Foto</legend>
 						<label>Los campos marcados con (*) son obligatorios.</label><br/><br/>
-
+						
+						<label>Álbum:</label> &emsp; <input disabled name="albumName" value="<?php echo $album; ?>"/>
+						<br/><br/>
+						<hr/>	
+						<br/>					
+						
 						<span> (*) Foto: </span>
 						<br/><br/>
 						<input type="file" name="image" id="image" onChange="loadFile(event)">
@@ -50,9 +57,9 @@
 					</fieldset>
 					<br/>
 					<div style="text-align: center;">
-						<button class="Basic Fancy" onClick="addPhoto(album, loadFile)">Subir Foto</button>
+						<input type="submit" class="Basic Fancy" value="Subir Foto" name="submit" >
 					</div>
-				</form>    
+				</form>      
 			</div>   
 			<br/><br/>
 			<hr/>

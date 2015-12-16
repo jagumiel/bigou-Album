@@ -47,14 +47,14 @@
 									<td><p>Avatar<p></td>
 									<td><p>Perfil<p></td>
 								</tr>";
-						$usersList = getUsers(); 
+						$usersList = getAllUsers(); 
 						foreach($usersList as $user ) {	
 							$myUser=$user['nick'];
 							$avatar=$user['avatar'];
 							echo "<tr>
 									<td>$myUser</td>
 									<td><img src='$avatar' width=40px/></td>
-									<td><a href='otherProfile.php?nick=$myUser'>Ver Perfil</a></td>
+									<td><a href='profile_other.php?nick=$myUser'>Ver Perfil</a></td>
 								  </tr>";
 						}
 						echo"</table>";

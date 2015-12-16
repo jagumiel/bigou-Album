@@ -8,7 +8,8 @@
 		header('Location: main.php');
 	
 	//$ip = get_client_ip();
-	$nick = $_SESSION['nick']; 
+	$nick = $_SESSION['nick'];
+	$role = getRole($nick);
 	//$email = $_SESSION['email']; 
 ?>
 
@@ -25,9 +26,10 @@
 			getAlbumsOf(nick); 
 			//var intervalID = window.setInterval( function () { getAlbumsOf(nick); }, 5000);	
 			
-			function newAlbum() {
-				var newAlbum = document.getElementByName['newAlbum'];
-				addAlbum(newAlbum.albumName.value, newAlbum.access.value, loadFile);
+			function uploadAlbum() {
+				var album = document.getElementById('albumName').value;
+				var access = document.getElementById('access').value;
+				addAlbum(album, access);
 				// Vaciar formulario
 			}
 			
@@ -39,42 +41,42 @@
 	</head>  
 	<body>
 		<div class="Canvas">
-			<?php echo menuHeader(true, $nick, $_SESSION['role']); ?>
+			<?php echo menuHeader(true, $nick, $role); ?>
 			<div class="GeneralDisplay">
 				<form class="Fancy" enctype="multipart/form-data" onSubmit='' action="./business_logic/newAlbum_bl.php" method="post" name="newAlbum" > 
-					<fieldset>
-						<legend>Crear álbum</legend>
-						<label>Los campos marcados con (*) son obligatorios.</label><br/><br/>
-						
-						<label>(*) Nombre del álbum:</label> &emsp; <input type="text" name="albumName" onBlur = ""> 
-						<br/><br/>					
-						<label>(*) Acceso:</label> &emsp; <select name="access" onBlur="checkAccess()">
-																<option value="private" selected>Privado</option>
-																<option value="limited">Acceso Limitado (Sólo usuarios registrados)</option>
-																<option value="public">Público</option>
-															</select>
-						<br/><br/>
-						<hr/>	
-						<br/>					
-						
-						<span> Portada: </span>
-						<br/><br/>
-						<input type="file" name="albumCover" id="albumCover" onChange="loadFile(event)">
-						<br/><br/>
-						<img id="output" align="center" width="150px" height="auto"/></br>
-							<script>
-								var loadFile = function(event) {
-								var output = document.getElementById('output');
-								output.src = URL.createObjectURL(event.target.files[0]);
-							  };
-							</script>
-						<br/><br/>
-					</fieldset>
-					<br/>
-					<div style="text-align: center;">
-						<button type="submit" class="Basic Fancy" onClick="newAlbum();"> Crear nuevo álbum </button>
-					</div>
-				</form>     
+				<fieldset>
+					<legend>Crear Álbum</legend>
+					<label>Los campos marcados con (*) son obligatorios.</label><br/><br/>
+					
+					<label>(*) Nombre del Álbum:</label> &emsp; <input type="text" name="albumName" onBlur = ""> 
+					<br/><br/>					
+					<label>(*) Acceso:</label> &emsp; <select name="access" onBlur="checkAccess()">
+															<option value="private" selected>Privado</option>
+															<option value="limited">Acceso Limitado (Sólo usuarios registrados)</option>
+															<option value="public">Público</option>
+														</select>
+					<br/><br/>
+					<hr/>	
+					<br/>					
+					
+					<span> Portada: </span>
+					<br/><br/>
+					<input type="file" name="albumCover" id="albumCover" onChange="loadFile(event)">
+					<br/><br/>
+					<img id="output" align="center" width="150px" height="auto"/></br>
+						<script>
+						  var loadFile = function(event) {
+							var output = document.getElementById('output');
+							output.src = URL.createObjectURL(event.target.files[0]);
+						  };
+						</script>
+					<br/><br/>
+				</fieldset>
+				<br/>
+				<div style="text-align: center;">
+					<input type="submit" class="Basic Fancy" value="Crear nuevo álbum" name="submit" >
+				</div>
+			</form>    
 			</div>
 			<br/><br/>
 			<hr/>

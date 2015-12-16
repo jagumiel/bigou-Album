@@ -2,6 +2,7 @@
 	include './business_logic/functions/menu_logic.php';
 	session_start();
 	$nick = $_SESSION['nick'];
+	$role = getRole($nick);
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -18,7 +19,7 @@
 	</head>  
 	<body>
 		<div class="Canvas">
-			<?php echo menuHeader(isset($_SESSION['nick']), $_SESSION['nick'], $_SESSION['role']); ?>
+			<?php echo menuHeader(isset($_SESSION['nick']), $_SESSION['nick'], $role); ?>
 			<div id="display" class="Display"></div>    
 			<br/><br/>   
 		</div>

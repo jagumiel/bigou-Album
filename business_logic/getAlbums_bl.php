@@ -7,6 +7,7 @@
 	$ip = get_client_ip();
 	$nick = $_SESSION['nick']; 
 	$email = $_SESSION['email']; 
+	$role = getRole($nick);
 
 	if (isset($_GET['target'])) {
 		$targetNick = $_GET['target'];
@@ -14,12 +15,20 @@
 		
 		if (strcmp($targetNick, "ALL") == 0) {
 			if (isset($nick)) {
-				$result = $result . printAlbums(getAlbums($nick), true);
-				$result = $result . printAlbums(getAllAlbums("limited", $nick), false); 
+				if ($role=="admin"){
+					//$result = $result . printAlbums(getAlbums($nick), true);
+					$result = $result . printAlbums(getAllAlbums("public", $nick), true);
+					$result = $result . printAlbums(getAllAlbums("limited", $nick), true);
+					$result = $result . printAlbums(getAllAlbums("private", NULL), true); 
+				}else{
+					$result = $result . printAlbums(getAlbums($nick), true);
+					$result = $result . printAlbums(getAllAlbums("public", $nick), false);
+					$result = $result . printAlbums(getAllAlbums("limited", NULL), false);
+				}
+				
 				// EXTRA: Get Albums con acceso privilegiado.
 				// $result = $result . printAlbums();
 			} 	
-			$result = $result . printAlbums(getAllAlbums("public", $nick), false);
 			addAction($nick, $email, $ip, "all_albums");
 			
 		} elseif (isset($nick) and strcmp($targetNick, $nick) == 0) {
@@ -50,7 +59,7 @@
 			$line = $line . "<div class='Album'>
 					<img src='".$alb['cover']."'/>
 					<p>".$alb['name']."</p>
-					<a href='./photos.php?var=$albumName'><button class='Basic Fancy' name='photos' onClick=''>Ver</button></a>";
+					<a href='./photos.php?album=$albumName'><button class='Basic Fancy' name='photos' onClick=''>Ver</button></a>";
 			
 			if ($self) {
 				$line = $line . "<button class='Basic Fancy' name='delete' onClick='removeAlbum(\"$albumName\");'>&#10008</button></a>";
