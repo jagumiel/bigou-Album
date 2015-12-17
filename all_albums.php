@@ -32,8 +32,8 @@
 			}
 			//var intervalID = window.setInterval( function () { getAlbumsOf(nick); }, 5000);	
 			
-			function removeAlbum(albumName) {
-				deleteAlbum(albumName);
+			function removeAlbum(albumName, albumNick) {
+				deleteAlbum(albumName, albumNick);
 			}
 			
 		</script>
@@ -42,7 +42,6 @@
 		<div class="Canvas">
 			<?php echo menuHeader(true, $nick, $role); ?>
 			<br/><br/>
-			<hr/>
 			<br/><br/>  
 			<div id="display" class="Display"></div>    
 			<br/><br/>   

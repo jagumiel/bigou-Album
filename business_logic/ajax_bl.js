@@ -92,7 +92,7 @@ function getPhotosOf(target, album) {
 	xmlhttp.send();
 }
 
-function deleteAlbum(albumName) {				
+function deleteAlbum(albumName, albumNick) {				
 	if (window.XMLHttpRequest) {
 		// code for IE7+, Firefox, Chrome, Opera, Safari
 		var xmlhttp = new XMLHttpRequest();
@@ -107,11 +107,11 @@ function deleteAlbum(albumName) {
 		}
 	}
 	
-	xmlhttp.open("GET","/business_logic/deleteAlbum_bl.php?albumName=" + albumName, true);
+	xmlhttp.open("GET","/business_logic/deleteAlbum_bl.php?albumName=" + albumName + "&albumNick=" + albumNick, true);
 	xmlhttp.send();	
 }
 
-function deletePhoto(albumName, path) {				
+function deletePhoto(albumName, path, nick) {				
 	if (window.XMLHttpRequest) {
 		// code for IE7+, Firefox, Chrome, Opera, Safari
 		var xmlhttp = new XMLHttpRequest();
@@ -126,7 +126,7 @@ function deletePhoto(albumName, path) {
 		}
 	}
 	
-	xmlhttp.open("GET","/business_logic/deletePhoto_bl.php?albumName=" + albumName + "&path=" + path, true);
+	xmlhttp.open("GET","/business_logic/deletePhoto_bl.php?albumName=" + albumName + "&path=" + path + "&target=" + nick, true);
 	xmlhttp.send();	
 }
 
@@ -146,5 +146,24 @@ function getUsers(accepted) {
 	}
 	
 	xmlhttp.open("GET","/business_logic/getUsers_bl.php?accepted=" + accepted, true);
+	xmlhttp.send();
+}
+
+function accept(user){
+	if (window.XMLHttpRequest) {
+		// code for IE7+, Firefox, Chrome, Opera, Safari
+		var xmlhttp = new XMLHttpRequest();
+	} else {
+		// code for IE6, IE5
+		var xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	
+	xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			$("#display").html(xmlhttp.responseText);
+		}
+	}
+	
+	xmlhttp.open("GET","/business_logic/acceptUsers_bl.php?user=" + user, true);
 	xmlhttp.send();
 }

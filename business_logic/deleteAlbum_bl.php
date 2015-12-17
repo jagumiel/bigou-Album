@@ -1,6 +1,6 @@
 <?php
 	include_once './functions/database_logic.php';
-	include './functions/photo_logic.php';
+	include_once './functions/photo_logic.php';
 	
 	session_start();
 	
@@ -9,11 +9,13 @@
 	$email = $_SESSION['email'];
 	$role = getRole($nick);
 	
-	/*$ip = $_GET['ip'];
-	$nick = $_GET['nick']; 
-	$email = $_GET['email']; */
-	$albumName = $_GET['albumName']; 
-	
+	$albumName = $_GET['albumName'];
+	$albumNick = $_GET['albumNick'];
+
+	/*if ($role=="admin"){
+		$nick=$albumNick;
+	}*/
+
 	echo $ip." ".$nick." ".$email." ".$albumName;
 	if($role=="partner"){	
 		if (isAlbum($nick, $albumName)) {
@@ -23,7 +25,7 @@
 			echo "No se ha podido borrar el álbum, no existe.";
 		}
 	}else{
-		if (deleteAlbum($nick, $albumName, $email, $ip))
+		if (deleteAlbum($albumNick, $albumName, $email, $ip)){
 				echo "Se ha borrado el álbum correctamente.";
 		} else {
 			echo "No se ha podido borrar el álbum, no existe.";

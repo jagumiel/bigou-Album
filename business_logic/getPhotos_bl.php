@@ -6,7 +6,12 @@
 	
 	$ip = get_client_ip();
 	$nick = $_SESSION['nick']; 
-	$email = $_SESSION['email']; 
+	$email = $_SESSION['email'];
+	$role = getRole($nick);
+
+	if($role=="admin"){
+		$nick=$_GET['target'];
+	}
 	
 	if (isset($_GET['target'])) {
 		$targetNick = $_GET['target'];
@@ -15,12 +20,12 @@
 		if (isAlbum($targetNick, $album)) {
 			if (isset($nick)) {
 				if (strcmp($targetNick, $nick) == 0) {
-					$result = printPhotos(getPhotos($targetNick, $album), true);
+					$result = printPhotos(getPhotos($targetNick, $album), true, $nick);
 					addAction($nick, $email, $ip, "self_photos");	
 				
 				// EXTRA: Añadir privileged access.
 				} elseif (strcmp(getAlbumAccess($nick, $albumName), "private") != 0) {
-					$result = printPhotos(getPhotos($targetNick, $album), false);
+					$result = printPhotos(getPhotos($targetNick, $album), false, $nick);
 					addAction($nick, $email, $ip, "others_photos");	 
 				
 				} else {
@@ -28,7 +33,7 @@
 				}
 			} else {
 				if (strcmp(getAlbumAccess($nick, $albumName), "public") == 0) {
-					$result = printPhotos(getPhotos($targetNick, $album), false);
+					$result = printPhotos(getPhotos($targetNick, $album), false, $nick);
 					addAction($nick, $email, $ip, "others_photos");	
 				
 				} else {
@@ -45,7 +50,7 @@
 		echo "No se ha especificado ningún usuario.";
 	}
 	
-	function printPhotos($album, $self) {
+	function printPhotos($album, $self, $nick) {
 		$line = "";
 		foreach($album as $photo ) {
 			$path = $photo['path'];
@@ -54,7 +59,7 @@
 								<a href='".$photo['path']."'><img src='".$photo['path']."' width=\"400\"/><a>";
 			
 			if ($self) {
-				$line = $line . "<button class='Basic Fancy' name='delete' onClick='deletePhoto(\"$albumName\", \"$path\");'>&#10008</button></a>";
+				$line = $line . "<button class='Basic Fancy' name='delete' onClick='deletePhoto(\"$albumName\", \"$path\", \"$nick\");'>&#10008</button></a>";
 			}
 								
 			$line = $line . "</div>";	

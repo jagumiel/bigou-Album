@@ -56,15 +56,16 @@
 		$line = "";
 		foreach($albums as $alb ) {	
 			$albumName = $alb['name'];
+			$albumNick = $alb['nick'];
 			$line = $line . "<div class='Album'>
 					<img src='".$alb['cover']."'/>
 					<p>".$alb['name']."</p>
-					<a href='./photos.php?album=$albumName'><button class='Basic Fancy' name='photos' onClick=''>Ver</button></a>";
+					<p>".$alb['nick']."</p>
+					<a href='./photos.php?album=$albumName&albumNick=$albumNick'><button class='Basic Fancy' name='photos' onClick=''>Ver</button></a>";
 			
 			if ($self) {
-				$line = $line . "<button class='Basic Fancy' name='delete' onClick='removeAlbum(\"$albumName\");'>&#10008</button></a>";
+				$line = $line . "<button class='Basic Fancy' name='delete' onClick='removeAlbum(\"$albumName\", \"$albumNick\");'>&#10008</button></a>";
 			}
-								
 			$line = $line . "</div>";	
 		}
 		

@@ -1,6 +1,6 @@
 ﻿<?php
 	include_once './business_logic/functions/database_logic.php';
-	include './business_logic/functions/menu_logic.php';
+	include_once './business_logic/functions/menu_logic.php';
 	
 	session_start();
 	

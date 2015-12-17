@@ -9,6 +9,11 @@
 	$nick = $_SESSION['nick'];
 	$album = $_GET['album'];
 	$role = getRole($nick);
+	$albumNick = $_GET['albumNick'];
+	
+	if ($role=="admin"){
+		$nick=$albumNick;
+	}
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -30,7 +35,7 @@
 	</head> 
 	<body>
 		<div class="Canvas">
-			<?php echo menuHeader(true, $nick, $_SESSION['role']); ?>
+			<?php echo menuHeader(true, $_SESSION['nick'], $role); ?>
 			<div class="GeneralDisplay">
 				<form class="Fancy" enctype="multipart/form-data" onSubmit='' action="./business_logic/newPhoto_bl.php" method="post" name="newPhoto" > 
 					<fieldset>
