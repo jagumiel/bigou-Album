@@ -68,7 +68,11 @@
 	}
 	
 	function removePhoto($nick, $path, $albumName) {
-		return makeQuery("DELETE FROM photo WHERE nick='{$nick}' AND path='{$path}' AND album='{$albumName}'");	
+		return makeQuery("DELETE FROM photo WHERE path='{$path}' AND album='{$albumName}'");	
+	}
+	
+	function removeUser($nick) {
+		return makeQuery("DELETE FROM user WHERE nick='{$nick}'");	
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
@@ -83,6 +87,10 @@
 		
 	function getUsers($validated) {
 		return makeQuery("SELECT * FROM user WHERE accepted='{$validated}'");
+	}
+	
+	function getDropRequested($requested) {
+		return makeQuery("SELECT * FROM user WHERE dropRequest='{$requested}'");
 	}
 	
 	function getAllUsers() {
@@ -131,6 +139,10 @@
 	
 	function setAccepted($nick){
 		return makeQuery("UPDATE user SET accepted='yes' WHERE nick = '{$nick}'");
+	}
+	
+	function setDropRequest($nick){
+		return makeQuery("UPDATE user SET dropRequest='yes' WHERE nick = '{$nick}'");
 	}
 	
 	function setPassword($nick, $password) {

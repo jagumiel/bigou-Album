@@ -5,24 +5,17 @@
 	session_start();
 	
 	$ip = get_client_ip();
-	$nick = $_SESSION['nick'];
-	$role = $_SESSION['role'];
-	$email = $_SESSION['email'];
+	$nick = $_SESSION['nick']; 
+	$email = $_SESSION['email']; 
 
 	if (isset($_GET['target'])) {
 		$targetNick = $_GET['target'];
 		$result = "";
 		
-		switch($targetNick) {
+		switch($target) {
 			case "ADMIN":
-				//if (strcmp($role, "admin")==0) {
-					$result = $result . printAlbums(getAllAlbums("public", $nick), true); 
-					$result = $result . printAlbums(getAllAlbums("limited", $nick), true); 
-					$result = $result . printAlbums(getAllAlbums("private", $nick), true); 
-				//} 	
-				addAction($nick, $email, $ip, "all_albums");
 				break;
-							
+				
 			case "ALL":
 				if (isset($nick)) {
 					$result = $result . printAlbums(getAlbums($nick), false);
@@ -61,11 +54,10 @@
 			$line = $line . "<div class='Album'>
 					<img src='".$alb['cover']."'/>
 					<p>".$alb['name']."</p>
-					<p>".$alb['nick']."</p>
 					<a href='./photos.php?nick=$nick&album=$albumName'><button class='Basic Fancy' name='photos' onClick=''>Ver</button></a>";
 			
 			if ($self) {
-				$line = $line . "<button class='Basic Fancy' name='delete' onClick='deleteAlbum(\"$albumName\",\"$nick\");'>&#10008</button></a>";
+				$line = $line . "<button class='Basic Fancy' name='delete' onClick='deleteAlbum(\"$albumName\");'>&#10008</button></a>";
 			}
 								
 			$line = $line . "</div>";	

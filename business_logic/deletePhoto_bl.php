@@ -1,29 +1,33 @@
 <?php
 	include_once './functions/database_logic.php';
-	include './functions/photo_logic.php';
+	include_once './functions/photo_logic.php';
 	
 	session_start();
 	
 	$ip = get_client_ip();
-	$nick = $_SESSION['nick'];
-	$role = getRole($nick);
+	$nick = $_SESSION['nick']; 
 	$email = $_SESSION['email']; 
 	$albumName = $_GET['albumName'];
 	$path = $_GET['path'];
-	$target = $_GET['target'];
-
+	$role=getRole($nick);
+	
 		
-	if($role=="partner"){
+	if (strcmp($role, "admin") == 0) {
+		$targetNick = $_GET['nick'];
+	} else {
+		$targetNick = $nick;
+	}
+	
+	if (strcmp($role, "partner") == 0) {
 		if (isAlbum($nick, $albumName)) {
-			if (deletePhoto($nick, $albumName, $path, $email, $ip)){
+			if (deletePhoto($albumName, $path, $email, $ip))
 				echo "Se ha borrado la foto correctamente.";
-			} else {
-				echo "No se ha podido borrar foto, no existe.";
-			}
+		} else {
+			echo "No se ha podido borrar foto, no existe.";
 		}
 	}else{
-		if (deletePhoto($target, $albumName, $path, $email, $ip)){
-			echo "Se ha borrado la foto correctamente.";
+		if (deletePhoto($albumName, $path, $email, $ip)){
+				echo "Se ha borrado la foto correctamente.";
 		} else {
 			echo "No se ha podido borrar foto, no existe.";
 		}

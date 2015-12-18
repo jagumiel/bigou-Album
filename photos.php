@@ -3,17 +3,16 @@
 	include_once './business_logic/functions/photo_logic.php';
 	include './business_logic/functions/menu_logic.php';
 	session_start();
-	if (!isset($_SESSION['nick']) or !isset($_GET['album']))
-		header('Location: main.php');
-		
-	$nick = $_SESSION['nick'];
-	$album = $_GET['album'];
-	$role = getRole($nick);
-	$albumNick = $_GET['albumNick'];
+			
+	$nick = $_SESSION['nick']; 
+	$targetNick = $_GET['nick'];
+	$album = $_GET['album']; 	
 	
-	if ($role=="admin"){
-		$nick=$albumNick;
-	}
+	if (!(isset($targetNick) or isset($nick) or isset($_GET['album'])))
+		header('Location: main.php');
+	
+	if (!isset($targetNick))
+		$targetNick = $nick;
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -26,49 +25,20 @@
 		<script language="JavaScript" src="./business_logic/ajax_bl.js"></script>
 		<script language="JavaScript" type="text/javascript" src="./business_logic/lib/jquery-1.11.3.min.js"></script>
 		<script>
-			var nick = "<?php echo $nick; ?>";
+			var target = "<?php echo $targetNick; ?>";
 			var album = "<?php echo $album;?>";
-			getPhotosOf(nick, album); 
-			//var intervalID = window.setInterval( function () { getPhotosOf(nick, album); }, 5000);	
+			getPhotosOf(target, album); 	
 			
 		</script>
 	</head> 
 	<body>
 		<div class="Canvas">
-			<?php echo menuHeader(true, $_SESSION['nick'], $role); ?>
-			<div class="GeneralDisplay">
-				<form class="Fancy" enctype="multipart/form-data" onSubmit='' action="./business_logic/newPhoto_bl.php" method="post" name="newPhoto" > 
-					<fieldset>
-						<legend>Subir Foto</legend>
-						<label>Los campos marcados con (*) son obligatorios.</label><br/><br/>
-						
-						<label>Álbum:</label> &emsp; <input disabled name="albumName" value="<?php echo $album; ?>"/>
-						<br/><br/>
-						<hr/>	
-						<br/>					
-						
-						<span> (*) Foto: </span>
-						<br/><br/>
-						<input type="file" name="image" id="image" onChange="loadFile(event)">
-						<br/><br/>
-						<img id="output" align="center" width="150px" height="auto"/></br>
-							<script>
-							  var loadFile = function(event) {
-								var output = document.getElementById('output');
-								output.src = URL.createObjectURL(event.target.files[0]);
-							  };
-							</script>
-						<br/><br/>
-					</fieldset>
-					<br/>
-					<div style="text-align: center;">
-						<input type="submit" class="Basic Fancy" value="Subir Foto" name="submit" >
-					</div>
-				</form>      
-			</div>   
-			<br/><br/>
-			<hr/>
-			<br/><br/>   
+			<?php 
+				echo menuHeader(true, $nick, $_SESSION['role']);
+				
+				if (strcmp($nick, $targetNick) == 0 or isAlbum($nick, $album))
+					echo newPhotoForm($album).'<br/><br/><hr/><br/><br/>'; 				
+			?>  
 			<div id="display" class="Display"></div>    
 			<br/><br/>   
 		</div>

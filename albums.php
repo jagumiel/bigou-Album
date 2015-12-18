@@ -3,14 +3,16 @@
 	include_once './business_logic/functions/menu_logic.php';
 	
 	session_start();
+		
+	$nick = $_SESSION['nick'];
+	$role = $_SESSION['role'];
+	$targetNick = $_GET['user'];
 	
-	if (!isset($_SESSION['nick']))
+	if (!(isset($targetNick) or isset($nick)))
 		header('Location: main.php');
 	
-	//$ip = get_client_ip();
-	$nick = $_SESSION['nick'];
-	$role = getRole($nick);
-	//$email = $_SESSION['email']; 
+	if (!isset($targetNick))
+		$targetNick = $nick;
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -22,9 +24,13 @@
 		<script language="JavaScript" src="./business_logic/ajax_bl.js"></script>
 		<script language="JavaScript" type="text/javascript" src="./business_logic/lib/jquery-1.11.3.min.js"></script>
 		<script>
-			var nick = "<?php echo $nick; ?>";
-			getAlbumsOf(nick); 
-			//var intervalID = window.setInterval( function () { getAlbumsOf(nick); }, 5000);	
+			var targetNick = "<?php echo $targetNick; ?>";
+			var role = "<?php echo $role; ?>";
+			if (role=="partner"){
+				getAlbumsOf(targetNick);
+			} else {
+				getAlbumsOf("ADMIN");
+			}
 			
 			function uploadAlbum() {
 				var album = document.getElementById('albumName').value;
@@ -41,46 +47,14 @@
 	</head>  
 	<body>
 		<div class="Canvas">
-			<?php echo menuHeader(true, $nick, $role); ?>
-			<div class="GeneralDisplay">
-				<form class="Fancy" enctype="multipart/form-data" onSubmit='' action="./business_logic/newAlbum_bl.php" method="post" name="newAlbum" > 
-				<fieldset>
-					<legend>Crear Álbum</legend>
-					<label>Los campos marcados con (*) son obligatorios.</label><br/><br/>
-					
-					<label>(*) Nombre del Álbum:</label> &emsp; <input type="text" name="albumName" onBlur = ""> 
-					<br/><br/>					
-					<label>(*) Acceso:</label> &emsp; <select name="access" onBlur="checkAccess()">
-															<option value="private" selected>Privado</option>
-															<option value="limited">Acceso Limitado (Sólo usuarios registrados)</option>
-															<option value="public">Público</option>
-														</select>
-					<br/><br/>
-					<hr/>	
-					<br/>					
-					
-					<span> Portada: </span>
-					<br/><br/>
-					<input type="file" name="albumCover" id="albumCover" onChange="loadFile(event)">
-					<br/><br/>
-					<img id="output" align="center" width="150px" height="auto"/></br>
-						<script>
-						  var loadFile = function(event) {
-							var output = document.getElementById('output');
-							output.src = URL.createObjectURL(event.target.files[0]);
-						  };
-						</script>
-					<br/><br/>
-				</fieldset>
-				<br/>
-				<div style="text-align: center;">
-					<input type="submit" class="Basic Fancy" value="Crear nuevo álbum" name="submit" >
-				</div>
-			</form>    
-			</div>
-			<br/><br/>
-			<hr/>
-			<br/><br/>  
+			<?php 
+				echo menuHeader(true, $nick, $_SESSION['role']);
+				
+				if ($_SESSION['role']=="partner"){
+					if (strcmp($nick, $targetNick) == 0)
+						echo newAlbumForm().'<br/><br/><hr/><br/><br/>';
+				}
+			?>
 			<div id="display" class="Display"></div>    
 			<br/><br/>   
 		</div>

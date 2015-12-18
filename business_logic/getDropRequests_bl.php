@@ -9,14 +9,14 @@
 	$email = $_SESSION['email']; 
 	$role = getRole($nick);
 
-	if (isset($_GET['accepted'])) {
-		$accepted = $_GET['accepted'];
+	if (isset($_GET['request'])) {
+		$request = $_GET['request'];
 		
-		if (strcmp($accepted, "no") == 0) {
+		if (strcmp($request, "yes") == 0) {
 			if (isset($nick)) {
 				if ($role=="admin"){
-					$noAceptados = getUsers($accepted); 
-					if (!(is_null($noAceptados))){
+					$dropRequest = getDropRequested($request); 
+					if (!(is_null($dropRequest))){
 						echo"<table align=center>
 									<tr>
 										<td><p>Usuario</p></td>
@@ -24,23 +24,24 @@
 										<td><p>Petición de Baja</p></td>
 										<td><p>Validar</p></td>
 									</tr>";
-							foreach($noAceptados as $user ) {	
+							foreach($dropRequest as $user ) {	
 								$myUser=$user['nick'];
-								$accepted=$user['accepted'];
+								$request=$user['request'];
 								$dropReq=$user['dropRequest'];
 								echo "<tr>
 										<td>$myUser</td>
-										<td><p>$accepted</p></td>
+										<td><p>$request</p></td>
 										<td><p>$dropReq</p></td>
-										<td><button class='Basic Fancy' name='aceptar' onClick='accept(\"$myUser\");'>&#10003</button></a></td>
+										<td><button class='Basic Fancy' name='aceptar' onClick='dropUser(\"$myUser\");'>&#10008</button></a></td>
 									  </tr>";
 							}
 							echo"</table>";
 					}else{
-						echo("No hay usuarios pendientes de aceptación.");
+						echo("No hay usuarios pendientes para dar de baja.");
 					}
 				}
 			}
 		}
 	}
 ?> 
+

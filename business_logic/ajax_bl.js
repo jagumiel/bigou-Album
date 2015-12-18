@@ -29,7 +29,7 @@ function addAlbum(albumName, access) {
 		processData: false,
 		success: function(datos) {
 			alert(datos);
-			getAlbumsOf(nick); 	
+			getAlbumsOf(targetNick); 	
 		}
 	});				
 }
@@ -45,7 +45,7 @@ function addPhoto(albumName, image) {
 	
 	xmlhttp.onreadystatechange = function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-			getPhotosOf(nick); 	
+			getPhotosOf(targetNick, albumName); 	
 		}
 	}
 	
@@ -72,7 +72,6 @@ function getAlbumsOf(target) {
 	xmlhttp.send();
 }
 
-
 function getPhotosOf(target, album) {		
 	if (window.XMLHttpRequest) {
 		// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -92,45 +91,7 @@ function getPhotosOf(target, album) {
 	xmlhttp.send();
 }
 
-function deleteAlbum(albumName, albumNick) {				
-	if (window.XMLHttpRequest) {
-		// code for IE7+, Firefox, Chrome, Opera, Safari
-		var xmlhttp = new XMLHttpRequest();
-	} else {
-		// code for IE6, IE5
-		var xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-	}
-	
-	xmlhttp.onreadystatechange = function() {
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-			getAlbumsOf(nick); 	
-		}
-	}
-	
-	xmlhttp.open("GET","/business_logic/deleteAlbum_bl.php?albumName=" + albumName + "&albumNick=" + albumNick, true);
-	xmlhttp.send();	
-}
-
-function deletePhoto(albumName, path, nick) {				
-	if (window.XMLHttpRequest) {
-		// code for IE7+, Firefox, Chrome, Opera, Safari
-		var xmlhttp = new XMLHttpRequest();
-	} else {
-		// code for IE6, IE5
-		var xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-	}
-	
-	xmlhttp.onreadystatechange = function() {
-		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-			getPhotosOf(nick); 	
-		}
-	}
-	
-	xmlhttp.open("GET","/business_logic/deletePhoto_bl.php?albumName=" + albumName + "&path=" + path + "&target=" + nick, true);
-	xmlhttp.send();	
-}
-
-function getUsers(accepted) {		
+function getUnacceptedUsers(accepted) {		
 	if (window.XMLHttpRequest) {
 		// code for IE7+, Firefox, Chrome, Opera, Safari
 		var xmlhttp = new XMLHttpRequest();
@@ -149,6 +110,63 @@ function getUsers(accepted) {
 	xmlhttp.send();
 }
 
+function getDropRequested(request) {		
+	if (window.XMLHttpRequest) {
+		// code for IE7+, Firefox, Chrome, Opera, Safari
+		var xmlhttp = new XMLHttpRequest();
+	} else {
+		// code for IE6, IE5
+		var xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	
+	xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			$("#display2").html(xmlhttp.responseText);
+		}
+	}
+	
+	xmlhttp.open("GET","/business_logic/getDropRequests_bl.php?request=" + request, true);
+	xmlhttp.send();
+}
+
+function deleteAlbum(albumName, owner) {				
+	if (window.XMLHttpRequest) {
+		// code for IE7+, Firefox, Chrome, Opera, Safari
+		var xmlhttp = new XMLHttpRequest();
+	} else {
+		// code for IE6, IE5
+		var xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	
+	xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			getAlbumsOf(nick); 	
+		}
+	}
+	
+	xmlhttp.open("GET","/business_logic/deleteAlbum_bl.php?albumName=" + albumName + "&nick=" + owner, true);
+	xmlhttp.send();	
+}
+
+function deletePhoto(albumName, path) {				
+	if (window.XMLHttpRequest) {
+		// code for IE7+, Firefox, Chrome, Opera, Safari
+		var xmlhttp = new XMLHttpRequest();
+	} else {
+		// code for IE6, IE5
+		var xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	
+	xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			getPhotosOf(nick); 	
+		}
+	}
+	
+	xmlhttp.open("GET","/business_logic/deletePhoto_bl.php?albumName=" + albumName + "&path=" + path, true);
+	xmlhttp.send();	
+}
+
 function accept(user){
 	if (window.XMLHttpRequest) {
 		// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -165,5 +183,43 @@ function accept(user){
 	}
 	
 	xmlhttp.open("GET","/business_logic/acceptUsers_bl.php?user=" + user, true);
+	xmlhttp.send();
+}
+
+function dropUser(user){
+	if (window.XMLHttpRequest) {
+		// code for IE7+, Firefox, Chrome, Opera, Safari
+		var xmlhttp = new XMLHttpRequest();
+	} else {
+		// code for IE6, IE5
+		var xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	
+	xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			$("#display").html(xmlhttp.responseText);
+		}
+	}
+	
+	xmlhttp.open("GET","/business_logic/dropUser_bl.php?user=" + user, true);
+	xmlhttp.send();
+}
+
+function makeDropRequest(user){
+	if (window.XMLHttpRequest) {
+		// code for IE7+, Firefox, Chrome, Opera, Safari
+		var xmlhttp = new XMLHttpRequest();
+	} else {
+		// code for IE6, IE5
+		var xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	
+	xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			$("#display").html(xmlhttp.responseText);
+		}
+	}
+	
+	xmlhttp.open("GET","/business_logic/makeDropRequest_bl.php?user=" + user, true);
 	xmlhttp.send();
 }

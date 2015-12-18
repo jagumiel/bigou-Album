@@ -27,9 +27,9 @@
 		<script>
 			var role = "<?php echo $role; ?>";
 			if(role=="admin"){
-				getUsers("no");
+				getUnacceptedUsers("no");
+				getDropRequested("yes");
 			}
-			//var intervalID = window.setInterval( function () { getAlbumsOf(nick); }, 5000);	
 			
 			
 		</script>
@@ -38,10 +38,16 @@
 		<div class="Canvas">
 			<?php echo menuHeader(true, $nick, $role); ?>
 			<br/><br/>
+			<h>Aceptar Usuarios:</h>
 			<hr/>
 			<br/><br/>
 			<div id="display" class="Display"></div>    
-			<br/><br/>   
+			<br/><br/>  
+			<h>Dar de baja Usuarios:</h>
+			<hr/>
+			<br/><br/>
+			<div id="display2" class="Display"></div>    
+			<br/><br/>  
 		</div>
 	</body>
 </html>

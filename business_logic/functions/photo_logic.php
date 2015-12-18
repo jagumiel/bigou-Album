@@ -17,7 +17,7 @@
 		return false;
 	}
 	
-	function deletePhoto($nick, $albumName, $path, $email, $ip) {
+	function deletePhoto($albumName, $path, $email, $ip) {
 		
 		if (removePhoto($nick, $path, $albumName)) {
 			addAction($nick, $email, $ip, 'delete_photo');

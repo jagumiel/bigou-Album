@@ -29,7 +29,7 @@
 				$email = getEmail($nick);
 				$_SESSION['nick'] = $nick;
 				$_SESSION['email'] = $email;
-				$_SESSION['role'] = getRole($email);
+				$_SESSION['role'] = getRole($nick);
 				
 				//setcookie( 'intentos', 0, time() + 1800 ); //30 minutos
 				
